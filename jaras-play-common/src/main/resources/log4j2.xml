@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" monitorInterval="30">
+
+    <!-- 全局属性（可在pattern中引用） -->
+    <Properties>
+        <!-- 日志文件存放路径 -->
+        <Property name="LOG_PATH">logs</Property>
+        <!-- 日志输出格式 -->
+        <Property name="LOG_PATTERN">[%d{yyyy-MM-dd HH:mm:ss.SSS}][%t][%-5level][%logger{36}] %msg%n</Property>
+    </Properties>
+
+    <!-- Appenders 定义输出目的地 -->
+    <Appenders>
+        <!-- 控制台输出 -->
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+        </Console>
+
+        <!-- 每日滚动文件输出 -->
+        <RollingFile name="FileLogger"
+                     fileName="${LOG_PATH}/app.log"
+                     filePattern="${LOG_PATH}/app-%d{yyyy-MM-dd}.log.gz">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <!-- 每天新文件 -->
+                <TimeBasedTriggeringPolicy interval="1"/>
+                <!-- 超过10MB时切分 -->
+                <SizeBasedTriggeringPolicy size="10MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="7"/> <!-- 保留7天 -->
+        </RollingFile>
+    </Appenders>
+
+    <!-- 日志记录器 -->
+    <Loggers>
+        <!-- 业务代码的日志级别 -->
+        <Logger name="com.github.emcegom" level="INFO" additivity="false">
+            <AppenderRef ref="Console"/>
+            <!--            <AppenderRef ref="FileLogger"/>-->
+        </Logger>
+
+        <!-- 根日志记录器（默认级别INFO） -->
+        <Root level="INFO">
+            <AppenderRef ref="Console"/>
+            <!--            <AppenderRef ref="FileLogger"/>-->
+        </Root>
+    </Loggers>
+
+</Configuration>
