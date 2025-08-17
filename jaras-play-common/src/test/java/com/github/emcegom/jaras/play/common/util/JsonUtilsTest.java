@@ -1,5 +1,6 @@
 package com.github.emcegom.jaras.play.common.util;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -8,6 +9,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 public class JsonUtilsTest {
     static class User {
         private String name;
@@ -42,7 +44,7 @@ public class JsonUtilsTest {
         Assertions.assertTrue(json.contains("\"name\":\"Alice\""));
         Assertions.assertTrue(json.contains("\"birthday\":\"1995-08-09\""));
         Assertions.assertTrue(json.contains("\"createdAt\":\"2025-08-09 14:30:00\""));
-
+        log.info("JSON: {}", json);
         User deserialized = JsonUtils.fromJson(json, User.class);
         Assertions.assertEquals("Alice", deserialized.getName());
         Assertions.assertEquals(30, deserialized.getAge());

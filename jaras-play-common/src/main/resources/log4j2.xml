@@ -36,13 +36,11 @@
         <!-- 业务代码的日志级别 -->
         <Logger name="com.github.emcegom" level="INFO" additivity="false">
             <AppenderRef ref="Console"/>
-            <!--            <AppenderRef ref="FileLogger"/>-->
         </Logger>
 
         <!-- 根日志记录器（默认级别INFO） -->
         <Root level="INFO">
             <AppenderRef ref="Console"/>
-            <!--            <AppenderRef ref="FileLogger"/>-->
         </Root>
     </Loggers>
 
