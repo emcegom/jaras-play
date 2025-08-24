@@ -19,9 +19,10 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 import java.nio.file.Path;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
-public class SparkHoodieWriterTest {
+public class SparkHoodieWriterTest2 {
     @TempDir
     public Path tempDir;
 
@@ -70,6 +71,7 @@ public class SparkHoodieWriterTest {
             hudiDF.show(50, false);
             long total = hudiDF.count();
             log.info("[Reader] 读取{}条记录，总数: {}", total, hudiBasePath);
+            TimeUnit.MINUTES.sleep(60);
         } finally {
             sparkReader.stop();
             sparkReader.close();
